@@ -20,7 +20,7 @@ type AddressResult struct {
 type BrasilAPI struct{}
 
 func (api BrasilAPI) GetAddress(ctx context.Context, cep string) (*AddressResult, error) {
-	ctx, cancel := context.WithTimeout(ctx, time.Millisecond*1)
+	ctx, cancel := context.WithTimeout(ctx, time.Second*1)
 	defer cancel()
 
 	address, err := fetchAddress(ctx, "https://brasilapi.com.br/api/cep/v1/"+cep)
@@ -33,7 +33,7 @@ func (api BrasilAPI) GetAddress(ctx context.Context, cep string) (*AddressResult
 type ViaCEP struct{}
 
 func (api ViaCEP) GetAddress(ctx context.Context, cep string) (*AddressResult, error) {
-	ctx, cancel := context.WithTimeout(ctx, time.Second*3)
+	ctx, cancel := context.WithTimeout(ctx, time.Second*1)
 	defer cancel()
 
 	address, err := fetchAddress(ctx, "http://viacep.com.br/ws/"+cep+"/json")
