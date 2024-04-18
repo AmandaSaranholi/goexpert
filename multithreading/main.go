@@ -20,9 +20,6 @@ type AddressResult struct {
 type BrasilAPI struct{}
 
 func (api BrasilAPI) GetAddress(ctx context.Context, cep string) (*AddressResult, error) {
-	ctx, cancel := context.WithTimeout(ctx, time.Second*1)
-	defer cancel()
-
 	address, err := fetchAddress(ctx, "https://brasilapi.com.br/api/cep/v1/"+cep)
 	if err != nil {
 		return nil, err
@@ -33,9 +30,6 @@ func (api BrasilAPI) GetAddress(ctx context.Context, cep string) (*AddressResult
 type ViaCEP struct{}
 
 func (api ViaCEP) GetAddress(ctx context.Context, cep string) (*AddressResult, error) {
-	ctx, cancel := context.WithTimeout(ctx, time.Second*1)
-	defer cancel()
-
 	address, err := fetchAddress(ctx, "http://viacep.com.br/ws/"+cep+"/json")
 	if err != nil {
 		return nil, err
@@ -66,16 +60,21 @@ func fetchAddress(ctx context.Context, url string) (map[string]string, error) {
 func main() {
 	cep := "01153000"
 
-	chAddress := make(chan *AddressResult, 2)
-	go fetchAddressAsync(context.Background(), BrasilAPI{}, cep, chAddress)
-	go fetchAddressAsync(context.Background(), ViaCEP{}, cep, chAddress)
-	result := <-chAddress
+	ctxAddress, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
 
-	if result != nil {
-		fmt.Printf("Resultado da API %s:\n", result.Api)
-		printAddress(result.Address)
-	} else {
-		fmt.Println("Ambas as solicitações expiraram")
+	chAddress := make(chan *AddressResult, 2)
+	go fetchAddressAsync(ctxAddress, BrasilAPI{}, cep, chAddress)
+	go fetchAddressAsync(ctxAddress, ViaCEP{}, cep, chAddress)
+
+	select {
+	case <-ctxAddress.Done():
+		fmt.Println("Erro: Tempo expirado ao chamar as APIS.")
+	case result := <-chAddress:
+		if result != nil {
+			fmt.Printf("Resultado da API %s:\n", result.Api)
+			printAddress(result.Address)
+		}
 	}
 }
 
