@@ -31,3 +31,5 @@ func LoadConfig(path string) (*conf, error) {
 	}
 	return cfg, err
 }
+
+//import

@@ -7,8 +7,8 @@ package graph
 import (
 	"context"
 
-	"github.com/devfullcycle/20-CleanArch/internal/infra/graph/model"
-	"github.com/devfullcycle/20-CleanArch/internal/usecase"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/infra/graph/model"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/usecase"
 )
 
 // CreateOrder is the resolver for the createOrder field.
@@ -34,3 +34,5 @@ func (r *mutationResolver) CreateOrder(ctx context.Context, input *model.OrderIn
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 
 type mutationResolver struct{ *Resolver }
+
+//import

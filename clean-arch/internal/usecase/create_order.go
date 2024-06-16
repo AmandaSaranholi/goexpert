@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
-	"github.com/devfullcycle/20-CleanArch/pkg/events"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/entity"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/pkg/events"
 )
 
 type OrderInputDTO struct {
@@ -59,3 +59,5 @@ func (c *CreateOrderUseCase) Execute(input OrderInputDTO) (OrderOutputDTO, error
 
 	return dto, nil
 }
+
+//import

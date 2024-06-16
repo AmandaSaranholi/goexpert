@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
-	"github.com/devfullcycle/20-CleanArch/internal/usecase"
-	"github.com/devfullcycle/20-CleanArch/pkg/events"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/entity"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/usecase"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/pkg/events"
 )
 
 type WebOrderHandler struct {
@@ -47,3 +47,5 @@ func (h *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+//import

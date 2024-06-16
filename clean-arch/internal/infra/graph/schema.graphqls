@@ -1,3 +1,7 @@
+type Mutation {
+    createOrder(input: OrderInput): Order
+}
+
 type Order {
     id: String!
     Price: Float!
@@ -11,6 +15,3 @@ input OrderInput {
     Tax: Float!
 }
 
-type Mutation {
-    createOrder(input: OrderInput): Order
-}

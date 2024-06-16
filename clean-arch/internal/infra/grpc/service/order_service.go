@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"github.com/devfullcycle/20-CleanArch/internal/infra/grpc/pb"
-	"github.com/devfullcycle/20-CleanArch/internal/usecase"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/infra/grpc/pb"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/usecase"
 )
 
 type OrderService struct {
@@ -35,3 +35,5 @@ func (s *OrderService) CreateOrder(ctx context.Context, in *pb.CreateOrderReques
 		FinalPrice: float32(output.FinalPrice),
 	}, nil
 }
+
+//import

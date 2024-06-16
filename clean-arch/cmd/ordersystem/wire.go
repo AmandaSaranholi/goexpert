@@ -6,12 +6,13 @@ package main
 import (
 	"database/sql"
 
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
-	"github.com/devfullcycle/20-CleanArch/internal/event"
-	"github.com/devfullcycle/20-CleanArch/internal/infra/database"
-	"github.com/devfullcycle/20-CleanArch/internal/infra/web"
-	"github.com/devfullcycle/20-CleanArch/internal/usecase"
-	"github.com/devfullcycle/20-CleanArch/pkg/events"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/entity"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/event"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/infra/database"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/infra/web"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/usecase"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/pkg/events"
+
 	"github.com/google/wire"
 )
 
@@ -49,3 +50,5 @@ func NewWebOrderHandler(db *sql.DB, eventDispatcher events.EventDispatcherInterf
 	)
 	return &web.WebOrderHandler{}
 }
+
+//import

@@ -4,7 +4,8 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/entity"
+
 	"github.com/stretchr/testify/suite"
 
 	// sqlite3
@@ -49,3 +50,5 @@ func (suite *OrderRepositoryTestSuite) TestGivenAnOrder_WhenSave_ThenShouldSaveO
 	suite.Equal(order.Tax, orderResult.Tax)
 	suite.Equal(order.FinalPrice, orderResult.FinalPrice)
 }
+
+//import

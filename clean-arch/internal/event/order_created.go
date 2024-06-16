@@ -28,3 +28,5 @@ func (e *OrderCreated) SetPayload(payload interface{}) {
 func (e *OrderCreated) GetDateTime() time.Time {
 	return time.Now()
 }
+
+//import

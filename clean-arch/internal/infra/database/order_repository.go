@@ -3,7 +3,7 @@ package database
 import (
 	"database/sql"
 
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
+	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/entity"
 )
 
 type OrderRepository struct {
@@ -34,3 +34,5 @@ func (r *OrderRepository) GetTotal() (int, error) {
 	}
 	return total, nil
 }
+
+//import

@@ -67,3 +67,5 @@ func (ed *EventDispatcher) Remove(eventName string, handler EventHandlerInterfac
 func (ed *EventDispatcher) Clear() {
 	ed.handlers = make(map[string][]EventHandlerInterface)
 }
+
+//import

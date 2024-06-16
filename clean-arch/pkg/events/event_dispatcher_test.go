@@ -175,3 +175,5 @@ func (suite *EventDispatcherTestSuite) TestEventDispatch_Dispatch() {
 func TestSuite(t *testing.T) {
 	suite.Run(t, new(EventDispatcherTestSuite))
 }
+
+//import
