@@ -47,8 +47,21 @@ func NewWebOrderHandler(db *sql.DB, eventDispatcher events.EventDispatcherInterf
 		setOrderRepositoryDependency,
 		setOrderCreatedEvent,
 		web.NewWebOrderHandler,
+		setOrderListedEvent,
 	)
 	return &web.WebOrderHandler{}
 }
 
-//import
+var setOrderListedEvent = wire.NewSet(
+	event.NewOrderListed,
+	wire.Bind(new(events.EventInterface), new(*event.OrderListed)),
+)
+
+func NewListOrderUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *usecase.ListOrderUseCase {
+	wire.Build(
+		setOrderRepositoryDependency,
+		setOrderListedEvent,
+		usecase.NewListOrderUseCase,
+	)
+	return &usecase.ListOrderUseCase{}
+}
