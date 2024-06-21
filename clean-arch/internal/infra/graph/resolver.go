@@ -8,6 +8,5 @@ import "github.com/AmandaSaranholi/goexpert/clean-arch/internal/usecase"
 
 type Resolver struct {
 	CreateOrderUseCase usecase.CreateOrderUseCase
+	ListOrderUseCase   usecase.ListOrderUseCase
 }
-
-//import

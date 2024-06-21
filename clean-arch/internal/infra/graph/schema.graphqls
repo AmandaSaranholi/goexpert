@@ -1,5 +1,14 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
 type Mutation {
     createOrder(input: OrderInput): Order
+}
+
+type Query {
+    listOrders: [Order!]!
 }
 
 type Order {
