@@ -5,16 +5,19 @@ import (
 
 	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/infra/grpc/pb"
 	"github.com/AmandaSaranholi/goexpert/clean-arch/internal/usecase"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type OrderService struct {
 	pb.UnimplementedOrderServiceServer
 	CreateOrderUseCase usecase.CreateOrderUseCase
+	ListOrderUseCase   usecase.ListOrderUseCase
 }
 
-func NewOrderService(createOrderUseCase usecase.CreateOrderUseCase) *OrderService {
+func NewOrderService(createOrderUseCase usecase.CreateOrderUseCase, listOrderUseCase usecase.ListOrderUseCase) *OrderService {
 	return &OrderService{
 		CreateOrderUseCase: createOrderUseCase,
+		ListOrderUseCase:   listOrderUseCase,
 	}
 }
 
@@ -36,4 +39,22 @@ func (s *OrderService) CreateOrder(ctx context.Context, in *pb.CreateOrderReques
 	}, nil
 }
 
-//import
+func (s *OrderService) ListOrders(ctx context.Context, _ *emptypb.Empty) (*pb.ListOrdersResponse, error) {
+	output, err := s.ListOrderUseCase.Execute()
+	if err != nil {
+		return nil, err
+	}
+
+	var dtoOrders []*pb.Order
+	for _, order := range output {
+		dto := pb.Order{
+			Id:         order.ID,
+			Price:      float32(order.Price),
+			Tax:        float32(order.Tax),
+			FinalPrice: float32(order.FinalPrice),
+		}
+		dtoOrders = append(dtoOrders, &dto)
+	}
+
+	return &pb.ListOrdersResponse{Orders: dtoOrders}, nil
+}
