@@ -2,6 +2,11 @@
 
 Incluido servico para listagem de ordem
 
+# Criar a migration
+
+docker-compose up
+migrate -path db/migrations -database "mysql://root:root@tcp(localhost:3306)/orders" -verbose up
+
 
 ## Endpoint REST (:8000)
 
