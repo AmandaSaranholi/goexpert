@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    environment:
+      - STRATEGY_TYPE=redis
+      - REDIS_ADDR=redis:6379
+      - REDIS_PASSWORD=
+      - REDIS_DB=0
+      - LIMITER_IP_LIMIT=5
+      - LIMITER_TOKEN_LIMIT=5
+      - LIMITER_BLOCK_DURATION=30
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

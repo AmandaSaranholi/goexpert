@@ -29,7 +29,7 @@ func LoadConfig(path *string) *Config {
 	if path == nil {
 		path = &defaultPath
 	}
-	println(pwd, *path)
+
 	err = godotenv.Load(filepath.Join(pwd, *path))
 	if err != nil {
 		log.Fatal("Error loading .env file")
