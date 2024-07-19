@@ -64,7 +64,7 @@ docker run stress-test --url=http://google.com --requests=10 --concurrency=10
 
 Conforme solicitado segue os resultados da execução.
 
-Testei também com outras Urls e estou recebeno os status corretamente por aqui.
+Testei também com outras Urls e estou recebendo os status corretamente por aqui.
 
 ![stress-test](https://github.com/user-attachments/assets/1eecefe7-ba13-40c5-a3aa-dc7517c02267)
 
