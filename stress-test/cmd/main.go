@@ -18,7 +18,7 @@ func worker(idx int, url string, requests int, results chan<- int, wg *sync.Wait
 		resp, err := http.Get(url)
 		if err != nil {
 			results <- http.StatusInternalServerError
-			fmt.Printf("Worker %d: Response: %d  Status: %d\n", idx, i+1, http.StatusInternalServerError)
+			//fmt.Printf("Worker %d: Response: %d  Status: %d\n", idx, i+1, http.StatusInternalServerError)
 			continue
 		}
 
