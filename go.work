@@ -1,0 +1,9 @@
+go 1.21.6
+
+use (
+	./clean-arch
+	./client-server-api
+	./rate-limiter
+	./stress-test
+	./google-cloud-run
+)
