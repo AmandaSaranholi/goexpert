@@ -25,7 +25,7 @@ Docker Compose
    # Modifique o arquivo .env como desejar
    ```
 
-3. **Inicie o servidor Redis e o servidor Go com Docker Compose**
+3. **Inicie o servidor Go com Docker Compose**
 
    ```sh
    docker-compose up -d
