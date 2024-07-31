@@ -51,18 +51,22 @@ Docker Compose
 ### URL do Projeto rodando na Google Cloud Run
 
 Basta acessar a URL abaixo e substituir o zipcodepelo CEP desejado:
+
 https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/{zipcode}
 
 
 ### Exemplos
 
 **CEP Existente**
+
 https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/17280276
 
 
 **CEP Inexistente**
+
 https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/17280275
 
 
 **CEP Inválido**
+
 https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/123
