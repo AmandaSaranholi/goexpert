@@ -6,4 +6,6 @@ use (
 	./rate-limiter
 	./stress-test
 	./google-cloud-run
+	./otel-zipkin/service-a
+	./otel-zipkin/service-b
 )
