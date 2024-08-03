@@ -71,4 +71,9 @@ Esse projeto implementa um sistema em Go que receba um CEP, identifica a cidade 
 6. Para visualizar os traces no `Zipkin` acesse `http://localhost:9411`.
 
 ## Resultados após os testes
+![success_zipcode](https://github.com/user-attachments/assets/baa1e7b9-c25b-4a10-8965-1fd5d05554a3)
+![invalid_zipcode](https://github.com/user-attachments/assets/98a7614a-9c3c-4a0b-a206-908f7c5a0878)
+![canot_find_zipcode](https://github.com/user-attachments/assets/0cae7e3c-210a-4d5a-a189-67aa90daa982)
+
+
 
