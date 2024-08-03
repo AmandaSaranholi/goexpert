@@ -34,15 +34,15 @@ Esse projeto implementa um sistema em Go que receba um CEP, identifica a cidade 
 - Implementar tracing distribuído entre Serviço A e Serviço B.
 - Utilizar spans para medir o tempo de resposta do serviço de busca de CEP e busca de temperatura.
 
---
+
 
 ## Configuração do Ambiente
 
 1. Clone o repositório:
 
    ```bash
-  git clone git@github.com:AmandaSaranholi/goexpert.git
-  cd otel-zipkin
+   git clone git@github.com:AmandaSaranholi/goexpert.git
+   cd otel-zipkin
    ```
 
 2. Crie e configure o aquivo .env**
