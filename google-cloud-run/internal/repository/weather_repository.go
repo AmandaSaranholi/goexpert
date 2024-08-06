@@ -4,8 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
+
+	"unicode"
+	"unicode/utf8"
 
 	"github.com/AmandaSaranholi/goexpert/google-cloud-run/internal/entity"
+	"golang.org/x/text/unicode/norm"
 )
 
 type WeatherRepository interface {
@@ -27,9 +32,24 @@ func NewWeatherRepository(viaCepAPI, weatherAPI, weatherAPIKey string) WeatherRe
 	}
 }
 
+func isMn(r rune) bool {
+	return unicode.Is(unicode.Mn, r)
+}
+
+func removeAccents(str string) string {
+	t := norm.NFD.String(str)
+	b := make([]rune, 0, utf8.RuneCountInString(t))
+	for _, r := range t {
+		if !isMn(r) {
+			b = append(b, r)
+		}
+	}
+	return string(b)
+}
+
 func (r *weatherRepository) GetWeatherByLocation(location string) (*entity.Weather, error) {
-	url := fmt.Sprintf(r.weatherAPI, r.weatherAPIKey, location)
-	resp, err := http.Get(url)
+	site := fmt.Sprintf(r.weatherAPI, r.weatherAPIKey, location)
+	resp, err := http.Get(site)
 	if err != nil {
 		return nil, err
 	}
@@ -59,8 +79,8 @@ func (r *weatherRepository) GetWeatherByLocation(location string) (*entity.Weath
 }
 
 func (r *weatherRepository) GetLocationByZipCode(zipCode string) (string, error) {
-	url := fmt.Sprintf(r.viaCepAPI, zipCode)
-	resp, err := http.Get(url)
+	site := fmt.Sprintf(r.viaCepAPI, zipCode)
+	resp, err := http.Get(site)
 	if err != nil {
 		return "", err
 	}
@@ -79,6 +99,9 @@ func (r *weatherRepository) GetLocationByZipCode(zipCode string) (string, error)
 		return "", fmt.Errorf("can not find zipcode")
 	}
 
-	location := fmt.Sprintf("%s,%s", result["localidade"], result["uf"])
+	localidade := fmt.Sprintf("%s", result["localidade"])
+	localidade = removeAccents(localidade)
+	localidade = url.QueryEscape(localidade)
+	location := fmt.Sprintf("%s,%s", localidade, result["uf"])
 	return location, nil
 }
