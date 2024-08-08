@@ -59,14 +59,14 @@ https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/{zipcode}
 
 **CEP Existente**
 
-https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/17280276
+https://cloudrun-v2-goexpert-rgioguuwia-uc.a.run.app/weather/17280276
 
 
 **CEP Inexistente**
 
-https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/17280275
+https://cloudrun-v2-goexpert-rgioguuwia-uc.a.run.app/weather/17280275
 
 
 **CEP Inválido**
 
-https://cloudrun-goexpert-rgioguuwia-uc.a.run.app/weather/123
+https://cloudrun-v2-goexpert-rgioguuwia-uc.a.run.app/weather/123
