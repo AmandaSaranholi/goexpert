@@ -5,9 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
+	"unicode"
+	"unicode/utf8"
 
 	"github.com/AmandaSaranholi/goexpert/otel-zipkin/service-b/internal/entity"
 	"go.opentelemetry.io/otel"
+	"golang.org/x/text/unicode/norm"
 )
 
 var tracer = otel.Tracer("orchestrator-service")
@@ -31,12 +35,27 @@ func NewWeatherRepository(viaCepAPI, weatherAPI, weatherAPIKey string) WeatherRe
 	}
 }
 
+func isMn(r rune) bool {
+	return unicode.Is(unicode.Mn, r)
+}
+
+func removeAccents(str string) string {
+	t := norm.NFD.String(str)
+	b := make([]rune, 0, utf8.RuneCountInString(t))
+	for _, r := range t {
+		if !isMn(r) {
+			b = append(b, r)
+		}
+	}
+	return string(b)
+}
+
 func (r *weatherRepository) GetWeatherByLocation(location string, ctx context.Context) (*entity.Weather, error) {
 	_, span := tracer.Start(ctx, "fetch-weather")
 	defer span.End()
 
-	url := fmt.Sprintf(r.weatherAPI, r.weatherAPIKey, location)
-	resp, err := http.Get(url)
+	site := fmt.Sprintf(r.weatherAPI, r.weatherAPIKey, location)
+	resp, err := http.Get(site)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +88,8 @@ func (r *weatherRepository) GetLocationByZipCode(zipCode string, ctx context.Con
 	_, span := tracer.Start(ctx, "fetch-location")
 	defer span.End()
 
-	url := fmt.Sprintf(r.viaCepAPI, zipCode)
-	resp, err := http.Get(url)
+	site := fmt.Sprintf(r.viaCepAPI, zipCode)
+	resp, err := http.Get(site)
 	if err != nil {
 		return "", err
 	}
@@ -89,6 +108,9 @@ func (r *weatherRepository) GetLocationByZipCode(zipCode string, ctx context.Con
 		return "", fmt.Errorf("can not find zipcode")
 	}
 
-	location := fmt.Sprintf("%s,%s", result["localidade"], result["uf"])
+	localidade := fmt.Sprintf("%s", result["localidade"])
+	localidade = removeAccents(localidade)
+	localidade = url.QueryEscape(localidade)
+	location := fmt.Sprintf("%s,%s", localidade, result["uf"])
 	return location, nil
 }
